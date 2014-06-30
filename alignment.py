@@ -8,7 +8,7 @@
 # zeros() was origianlly from NumPy.
 # This version is implemented by alevchuk 2011-04-10
 
-# Added the return of identities. mogeiwang, 2014-6-30
+# Added the return of identities, and the printing control parameter. mogeiwang, 2014-6-30
 
 def zeros(shape):
     retval = []
@@ -30,7 +30,7 @@ def match_score(alpha, beta):
     else:
         return mismatch_penalty
 
-def finalize(align1, align2):
+def finalize(align1, align2, pt=False):
     align1 = align1[::-1]    #reverse sequence 1
     align2 = align2[::-1]    #reverse sequence 2
 
@@ -61,15 +61,17 @@ def finalize(align1, align2):
 
     identity = float(identity) / len(align1) * 100
 
-    print 'Identity =', "%3.3f" % identity, 'percent'
-    print 'Score =', score
-    print align1
-    print symbol
-    print align2
+    if pt:
+        print 'Identity =', "%3.3f" % identity, 'percent'
+        print 'Score =', score
+        print align1
+        print symbol
+        print align2
+
     return identity
 
 
-def needle(seq1, seq2):
+def needle(seq1, seq2, pt=False):
     m, n = len(seq1), len(seq2)  # length of two sequences
 
     # Generate DP table and traceback path pointer matrix
@@ -120,9 +122,9 @@ def needle(seq1, seq2):
         align2 += seq2[j-1]
         j -= 1
 
-    return finalize(align1, align2)
+    return finalize(align1, align2, pt)
 
-def water(seq1, seq2):
+def water(seq1, seq2, pt=False):
     m, n = len(seq1), len(seq2)  # length of two sequences
 
     # Generate DP table and traceback path pointer matrix
@@ -170,4 +172,4 @@ def water(seq1, seq2):
             align2 += '-'
             i -= 1
 
-    return finalize(align1, align2)
+    return finalize(align1, align2, pt)
