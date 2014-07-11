@@ -18,9 +18,9 @@ def zeros(shape):
             retval[-1].append(0)
     return retval
 
-match_award      = 10
-mismatch_penalty = -5
-gap_penalty      = -5 # both for opening and extanding
+match_award      =  9 # 10
+mismatch_penalty = -6 # -5
+gap_penalty      = -3 # -5 # both for opening and extanding
 
 def match_score(alpha, beta):
     if alpha == beta:
